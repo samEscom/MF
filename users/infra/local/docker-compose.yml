@@ -1,0 +1,25 @@
+services:
+  users-db:
+    image: postgres:15-alpine
+    container_name: users-db
+    restart: always
+    expose:
+      - "5432"
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=mf_users
+      - POSTGRES_HOST_AUTH_METHOD=trust
+      - POSTGRES_USER=postgresql
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - "db_data:/var/lib/postgresql/data"
+    networks:
+      - mf_users
+networks:
+  mf_users:
+    driver: bridge
+
+volumes:
+  db_data:
+    driver: local
